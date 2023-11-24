@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+<meta charset="utf-8" />
+<title>el_data_dsv_config_include_invalid_escape_sequence</title>
+</head>
+<body>
+<h1
+id="el_data_dsv_config_include_invalid_escape_sequence">el_data_dsv_config_include_invalid_escape_sequence</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> el_data_dsv_config_include_invalid_escape_sequence<span class="op">(</span>el_data<span class="op">*</span> dp<span class="op">);</span></span></code></pre></div>
+<h2 id="description">Description</h2>
+<p>Parses an invalid escape sequence as if unescaped, I.E. part of the
+data.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt>el_data* dp</dt>
+<dd>
+A pointer to a valid el_data structure.
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<ul>
+<li>On success: 1.</li>
+<li>On error: 0.</li>
+</ul>
+<h2 id="remarks">Remarks</h2>
+<p>Let's assume you have called this function. Your escape character is
+backslash, and for goodness knows what reason, you have escape codes, a,
+b and c to escape a, b and c. The following field: "\"\a\b\c\"" will be
+parsed as: "\"abc\"".</p>
+<p>It is normally not necessary to call this function, as this is the
+default behaviour. However it's always best to set these options
+explicitly.</p>
+<p>Calling this function multiple times is harmless but also
+pointless.</p>
+</body>
+</html>

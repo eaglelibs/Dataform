@@ -1,0 +1,26 @@
+=el_data_dsv_config_set_escape_character=
+<syntaxhighlight lang="c">
+int el_data_dsv_config_set_escape_character(el_data* dp, char escape);
+</syntaxhighlight>
+
+==Description==
+Sets the escape character for the Delimiter-Separated Values (DSV) parser.
+
+Note that in the escape sequence "\n", \ is considered the escape character.
+
+==Parameters==
+;el_data* dp
+:A pointer to a valid el_data structure.
+;char escape
+:The character to use as an escape character.
+
+==Returns==
+*On success: 1.
+*On error: 0.
+
+==Remarks==
+The following symbols may be used as escape characters: <nowiki>!#$%&()*+,-./:;<=>?@[\]^_{|}~</nowiki>
+
+Note that only one escape character is allowed. Also note that the escape character cannot be the same as the delimiter.
+
+The default escape character is backslash ("\").

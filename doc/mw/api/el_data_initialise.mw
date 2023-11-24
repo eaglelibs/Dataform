@@ -1,0 +1,20 @@
+=el_data_initialise=
+<syntaxhighlight lang="c">
+int el_data_initialise(el_data* dp);
+</syntaxhighlight>
+
+==Description==
+Initialises the data system.
+
+==Parameters==
+;el_data* dp
+:A pointer to an el_data structure.
+
+==Returns==
+*On success: 1.
+*On error: 0.
+
+==Remarks==
+It is your responsibility to allocate memory for this structure and pass in a valid pointer to it. It doesn't matter whether it's allocated on the stack or the heap, just as long as the pointer points to accessible memory.
+
+If the pointer is NULL, the function will fail.

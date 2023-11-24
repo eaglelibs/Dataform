@@ -1,0 +1,53 @@
+=Eagle Data=
+Part of the EagleLibs collection.
+
+==What is EagleLibs?==
+EagleLibs is a collection of libraries written in C that aim to work under the EAGLE principle:
+
+===Easy===
+*Easy to learn.
+*Simple to use.
+*No complicated dependencies.
+*No extra build steps - just add and go.
+*Works out of the box.
+
+===Atomic===
+*All code is stored in two files: A c file and a corresponding header.
+*For projects developed in a more modular fashion, amalgamations are available, either by downloading a release or simply merging all the files together - a script will usually be provided for this.
+
+===Granular===
+Although a library promises simplicity, it also has advanced features for those who need finer control or more options.
+
+===Liberal===
+Licensed under extremely permissive licences, so you can do whatever you want with them.
+
+===Efficient===
+*Stable: Libraries that do their job well.
+*Lightning fast using minimal resources.
+*Transparent documentation: Where compromises have to be made, you will be told, and you will likely be given a setting to allow you to prioritise one over the other.
+
+==What is Eagle Data?==
+Eagle Data is one of many planned EagleLibs. Currently, it allows you to parse delimiter-separated values (DSV) formatted data.
+
+==API==
+===Initialisation and cleanup===
+*[[api/el_data_initialise.html|el_data_initialise]]
+*[[api/el_data_cleanup.html|el_data_cleanup]]
+
+===DSV===
+====Config====
+*[[api/el_data_dsv_config_set_delimiter.html|el_data_dsv_config_set_delimiter]]
+*[[api/el_data_dsv_config_set_escape_character.html|el_data_dsv_config_set_escape_character]]
+*[[api/el_data_dsv_config_escape_code.html|el_data_dsv_config_escape_code]]
+*[[api/el_data_dsv_config_include_invalid_escape_sequence.html|el_data_dsv_config_include_invalid_escape_sequence]]
+*[[api/el_data_dsv_config_exclude_invalid_escape_sequence.html|el_data_dsv_config_exclude_invalid_escape_sequence]]
+
+====Analysis====
+*[[api/el_data_dsv_parse_line.html|el_data_dsv_parse_line]]
+*[[api/el_data_dsv_count_fields.html|el_data_dsv_count_fields]]
+*[[api/el_data_dsv_get_field.html|el_data_dsv_get_field]]
+
+==Future goals==
+I hope to one day turn it into a fully featured parser, generator, converter and analyser of many different formats, including tuples, and eventually tuple arrays such as ini files, all the way to hierarchical formats like XML, HTML, YAML, TOML, JSON etc.
+
+It may even get to a stage where it can work with code and documentation, though that will likely be a long time in the future.

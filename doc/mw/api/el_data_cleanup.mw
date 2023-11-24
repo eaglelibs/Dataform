@@ -1,0 +1,18 @@
+=el_data_cleanup=
+<syntaxhighlight lang="c">
+int el_data_cleanup(el_data* dp);
+</syntaxhighlight>
+
+==Description==
+Cleans up the data system.
+
+==Parameters==
+;el_data* dp
+:A pointer to a valid el_data structure.
+
+==Returns==
+*On success: 1.
+*On error: 0.
+
+==Remarks==
+It is your responsibility to ensure that any heap memory that may be supporting the el_data structure is safely freed.

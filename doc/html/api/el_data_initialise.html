@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+<meta charset="utf-8" />
+<title>el_data_initialise</title>
+</head>
+<body>
+<h1 id="el_data_initialise">el_data_initialise</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> el_data_initialise<span class="op">(</span>el_data<span class="op">*</span> dp<span class="op">);</span></span></code></pre></div>
+<h2 id="description">Description</h2>
+<p>Initialises the data system.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt>el_data* dp</dt>
+<dd>
+A pointer to an el_data structure.
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<ul>
+<li>On success: 1.</li>
+<li>On error: 0.</li>
+</ul>
+<h2 id="remarks">Remarks</h2>
+<p>It is your responsibility to allocate memory for this structure and
+pass in a valid pointer to it. It doesn't matter whether it's allocated
+on the stack or the heap, just as long as the pointer points to
+accessible memory.</p>
+<p>If the pointer is NULL, the function will fail.</p>
+</body>
+</html>

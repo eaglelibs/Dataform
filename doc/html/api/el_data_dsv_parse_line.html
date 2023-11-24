@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+<meta charset="utf-8" />
+<title>el_data_dsv_parse_line</title>
+</head>
+<body>
+<h1 id="el_data_dsv_parse_line">el_data_dsv_parse_line</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> el_data_dsv_parse_line<span class="op">(</span>el_data<span class="op">*</span> dp<span class="op">,</span> <span class="dt">char</span><span class="op">*</span> line<span class="op">);</span></span></code></pre></div>
+<h2 id="description">Description</h2>
+<p>Parses a line of delimiter-separated values.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt>el_data* dp</dt>
+<dd>
+A pointer to a valid el_data structure.
+</dd>
+<dt>char* line</dt>
+<dd>
+A valid C-string containing the line to parse.
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<ul>
+<li>On success: 1.</li>
+<li>On error: 0.</li>
+</ul>
+<h2 id="remarks">Remarks</h2>
+<p>This function fills in the necessary structures, allowing you to use
+the get_field and count_fields functions to retrieve the data.</p>
+<p>The parser treats all characters as is, apart from the following:</p>
+<ul>
+<li>All invalid characters are ignored. Invalid characters include:
+<ul>
+<li>Nonprintables (ASCII 0-31, excluding tab, and 127).</li>
+<li>Extended ASCII (anything above 127).</li>
+</ul></li>
+<li>The delimiter usually signals the end of one field and the start of
+another. However, it stands alone if used in a quoted string.</li>
+<li>Valid escape sequences are escaped according to configured
+rules.</li>
+<li>Invalid escape sequences are either rendered as is or ignored,
+according to configured rules.</li>
+</ul>
+</body>
+</html>

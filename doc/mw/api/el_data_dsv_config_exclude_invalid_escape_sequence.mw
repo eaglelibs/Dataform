@@ -1,0 +1,22 @@
+=el_data_dsv_config_exclude_invalid_escape_sequence=
+<syntaxhighlight lang="c">
+int el_data_dsv_config_exclude_invalid_escape_sequence(el_data* dp);
+</syntaxhighlight>
+
+==Description==
+Ignores invalid escape sequences during parsing.
+
+==Parameters==
+;el_data* dp
+:A pointer to a valid el_data structure.
+
+==Returns==
+*On success: 1.
+*On error: 0.
+
+==Remarks==
+Let's assume you have called this function. Your escape character is backslash, and for goodness knows what reason, you have escape codes, a, b and c to escape a, b and c. The following field: "\"\a\b\c\"" will be parsed as: "abc".
+
+If you want this behaviour, you will have to explicitly call this function.
+
+Calling this function multiple times is harmless but also pointless.

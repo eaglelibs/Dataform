@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+<meta charset="utf-8" />
+<title>el_data_dsv_config_set_escape_character</title>
+</head>
+<body>
+<h1
+id="el_data_dsv_config_set_escape_character">el_data_dsv_config_set_escape_character</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> el_data_dsv_config_set_escape_character<span class="op">(</span>el_data<span class="op">*</span> dp<span class="op">,</span> <span class="dt">char</span> escape<span class="op">);</span></span></code></pre></div>
+<h2 id="description">Description</h2>
+<p>Sets the escape character for the Delimiter-Separated Values (DSV)
+parser.</p>
+<p>Note that in the escape sequence "\n", \ is considered the escape
+character.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt>el_data* dp</dt>
+<dd>
+A pointer to a valid el_data structure.
+</dd>
+<dt>char escape</dt>
+<dd>
+The character to use as an escape character.
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<ul>
+<li>On success: 1.</li>
+<li>On error: 0.</li>
+</ul>
+<h2 id="remarks">Remarks</h2>
+<p>The following symbols may be used as escape characters:
+!#$%&amp;()*+,-./:;&lt;=&gt;?@[\]^_{|}~</p>
+<p>Note that only one escape character is allowed. Also note that the
+escape character cannot be the same as the delimiter.</p>
+<p>The default escape character is backslash ("\").</p>
+</body>
+</html>

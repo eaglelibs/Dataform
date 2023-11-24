@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+<meta charset="utf-8" />
+<title>el_data_dsv_get_field</title>
+</head>
+<body>
+<h1 id="el_data_dsv_get_field">el_data_dsv_get_field</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span><span class="op">*</span> el_data_dsv_get_field<span class="op">(</span>el_data<span class="op">*</span> dp<span class="op">,</span> <span class="dt">int</span> field<span class="op">);</span></span></code></pre></div>
+<h2 id="description">Description</h2>
+<p>Gets the value of a specified field.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt>el_data* dp</dt>
+<dd>
+A pointer to a valid el_data structure.
+</dd>
+<dt>int field</dt>
+<dd>
+The zero-based ID of a field to retrieve.
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<ul>
+<li>On success: A C-string with the parsed data for that field.</li>
+<li>On error: NULL.</li>
+</ul>
+<h2 id="remarks">Remarks</h2>
+<p>Data must first be parsed using el_data_dsv_parse_line before this
+function can be used.</p>
+<p>Fields are parsed sequentially, so field 0 is the first field on the
+line, field 1 is the second, and so on.</p>
+<p>If the field index is out of bounds, NULL is returned. Use
+el_data_dsv_count_fields to count the number of available fields.</p>
+</body>
+</html>

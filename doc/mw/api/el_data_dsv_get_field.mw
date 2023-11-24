@@ -1,0 +1,24 @@
+=el_data_dsv_get_field=
+<syntaxhighlight lang="c">
+char* el_data_dsv_get_field(el_data* dp, int field);
+</syntaxhighlight>
+
+==Description==
+Gets the value of a specified field.
+
+==Parameters==
+;el_data* dp
+:A pointer to a valid el_data structure.
+;int field
+:The zero-based ID of a field to retrieve.
+
+==Returns==
+*On success: A C-string with the parsed data for that field.
+*On error: NULL.
+
+==Remarks==
+Data must first be parsed using el_data_dsv_parse_line before this function can be used.
+
+Fields are parsed sequentially, so field 0 is the first field on the line, field 1 is the second, and so on.
+
+If the field index is out of bounds, NULL is returned. Use el_data_dsv_count_fields to count the number of available fields.

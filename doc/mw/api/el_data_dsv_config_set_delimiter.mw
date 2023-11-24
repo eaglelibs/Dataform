@@ -1,0 +1,24 @@
+=el_data_dsv_config_set_delimiter=
+<syntaxhighlight lang="c">
+int el_data_dsv_config_set_delimiter(el_data* dp, char delimiter);
+</syntaxhighlight>
+
+==Description==
+Sets the delimiter character for the Delimiter-Separated Values (DSV) parser.
+
+==Parameters==
+;el_data* dp
+:A pointer to a valid el_data structure.
+;char delimiter
+:The character to use as a delimiter.
+
+==Returns==
+*On success: 1.
+*On error: 0.
+
+==Remarks==
+Valid delimiters: Tab, space, and the following symbols: <nowiki>!#$%&()*+,-./:;<=>?@[\]^_{|}~</nowiki>
+
+Note that only one delimiter is allowed.
+
+The default is comma, meaning that unless you explicitly set a new value using this function, it starts out as a regular CSV parser.

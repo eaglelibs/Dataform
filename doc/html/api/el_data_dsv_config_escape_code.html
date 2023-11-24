@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+<meta charset="utf-8" />
+<title>el_data_dsv_config_escape_code</title>
+</head>
+<body>
+<h1
+id="el_data_dsv_config_escape_code">el_data_dsv_config_escape_code</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> el_data_dsv_config_escape_code<span class="op">(</span>el_data<span class="op">*</span> dp<span class="op">,</span> <span class="dt">char</span> escape<span class="op">,</span> <span class="dt">char</span> real<span class="op">);</span></span></code></pre></div>
+<h2 id="description">Description</h2>
+<p>Adds an escape code to the Delimiter-Separated Values (DSV)
+parser.</p>
+<p>Note that in the escape sequence "\n", n is considered the escape
+code.</p>
+<p>Common characters you may wish to escape are:</p>
+<ul>
+<li>New line characters (\r\n)</li>
+<li>Delimiter character</li>
+<li>Escape character</li>
+<li>Quotation marks</li>
+</ul>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt>el_data* dp</dt>
+<dd>
+A pointer to a valid el_data structure.
+</dd>
+<dt>char escape</dt>
+<dd>
+The character to use as an escape code.
+</dd>
+<dt>char real</dt>
+<dd>
+The character you are escaping.
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<ul>
+<li>On success: 1.</li>
+<li>On error: 0.</li>
+</ul>
+<h2 id="remarks">Remarks</h2>
+<p>You can call this function multiple times to set as many escape codes
+as you like.</p>
+<p>Each escape code must be unique. Calling this function with an escape
+code that already exists will overwrite the value of the true character
+it is meant to escape. On the other hand, a true character may have more
+than one escape code. See example below to see how this works.</p>
+<h2 id="example">Example</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Assuming the following initialised parser, declared as follows: el_data dp; */</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>el_data_dsv_config_escape_code<span class="op">(&amp;</span>dp<span class="op">,</span> <span class="ch">&#39;r&#39;</span><span class="op">,</span> <span class="ch">&#39;</span><span class="sc">\r</span><span class="ch">&#39;</span><span class="op">);</span> <span class="co">/* \r is now escaped in the parser */</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>el_data_dsv_config_escape_code<span class="op">(&amp;</span>dp<span class="op">,</span> <span class="ch">&#39;n&#39;</span><span class="op">,</span> <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span><span class="op">);</span> <span class="co">/* \n is now escaped in the parser */</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>el_data_dsv_config_escape_code<span class="op">(&amp;</span>dp<span class="op">,</span> <span class="ch">&#39;r&#39;</span><span class="op">,</span> <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span><span class="op">);</span> <span class="co">/* Oops. \r has now been overwritten and mapped to \n. Writing \r\n in our data will now parse that as \n\n. */</span></span></code></pre></div>
+</body>
+</html>

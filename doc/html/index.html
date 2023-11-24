@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+<meta charset="utf-8" />
+<title>index</title>
+</head>
+<body>
+<h1 id="eagle_data">Eagle Data</h1>
+<p>Part of the EagleLibs collection.</p>
+<h2 id="what_is_eaglelibs">What is EagleLibs?</h2>
+<p>EagleLibs is a collection of libraries written in C that aim to work
+under the EAGLE principle:</p>
+<h3 id="easy">Easy</h3>
+<ul>
+<li>Easy to learn.</li>
+<li>Simple to use.</li>
+<li>No complicated dependencies.</li>
+<li>No extra build steps - just add and go.</li>
+<li>Works out of the box.</li>
+</ul>
+<h3 id="atomic">Atomic</h3>
+<ul>
+<li>All code is stored in two files: A c file and a corresponding
+header.</li>
+<li>For projects developed in a more modular fashion, amalgamations are
+available, either by downloading a release or simply merging all the
+files together - a script will usually be provided for this.</li>
+</ul>
+<h3 id="granular">Granular</h3>
+<p>Although a library promises simplicity, it also has advanced features
+for those who need finer control or more options.</p>
+<h3 id="liberal">Liberal</h3>
+<p>Licensed under extremely permissive licences, so you can do whatever
+you want with them.</p>
+<h3 id="efficient">Efficient</h3>
+<ul>
+<li>Stable: Libraries that do their job well.</li>
+<li>Lightning fast using minimal resources.</li>
+<li>Transparent documentation: Where compromises have to be made, you
+will be told, and you will likely be given a setting to allow you to
+prioritise one over the other.</li>
+</ul>
+<h2 id="what_is_eagle_data">What is Eagle Data?</h2>
+<p>Eagle Data is one of many planned EagleLibs. Currently, it allows you
+to parse delimiter-separated values (DSV) formatted data.</p>
+<h2 id="api">API</h2>
+<h3 id="initialisation_and_cleanup">Initialisation and cleanup</h3>
+<ul>
+<li><a href="api/el_data_initialise.html"
+title="wikilink">el_data_initialise</a></li>
+<li><a href="api/el_data_cleanup.html"
+title="wikilink">el_data_cleanup</a></li>
+</ul>
+<h3 id="dsv">DSV</h3>
+<h4 id="config">Config</h4>
+<ul>
+<li><a href="api/el_data_dsv_config_set_delimiter.html"
+title="wikilink">el_data_dsv_config_set_delimiter</a></li>
+<li><a href="api/el_data_dsv_config_set_escape_character.html"
+title="wikilink">el_data_dsv_config_set_escape_character</a></li>
+<li><a href="api/el_data_dsv_config_escape_code.html"
+title="wikilink">el_data_dsv_config_escape_code</a></li>
+<li><a
+href="api/el_data_dsv_config_include_invalid_escape_sequence.html"
+title="wikilink">el_data_dsv_config_include_invalid_escape_sequence</a></li>
+<li><a
+href="api/el_data_dsv_config_exclude_invalid_escape_sequence.html"
+title="wikilink">el_data_dsv_config_exclude_invalid_escape_sequence</a></li>
+</ul>
+<h4 id="analysis">Analysis</h4>
+<ul>
+<li><a href="api/el_data_dsv_parse_line.html"
+title="wikilink">el_data_dsv_parse_line</a></li>
+<li><a href="api/el_data_dsv_count_fields.html"
+title="wikilink">el_data_dsv_count_fields</a></li>
+<li><a href="api/el_data_dsv_get_field.html"
+title="wikilink">el_data_dsv_get_field</a></li>
+</ul>
+<h2 id="future_goals">Future goals</h2>
+<p>I hope to one day turn it into a fully featured parser, generator,
+converter and analyser of many different formats, including tuples, and
+eventually tuple arrays such as ini files, all the way to hierarchical
+formats like XML, HTML, YAML, TOML, JSON etc.</p>
+<p>It may even get to a stage where it can work with code and
+documentation, though that will likely be a long time in the future.</p>
+</body>
+</html>

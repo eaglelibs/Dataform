@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+<meta charset="utf-8" />
+<title>el_data_cleanup</title>
+</head>
+<body>
+<h1 id="el_data_cleanup">el_data_cleanup</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> el_data_cleanup<span class="op">(</span>el_data<span class="op">*</span> dp<span class="op">);</span></span></code></pre></div>
+<h2 id="description">Description</h2>
+<p>Cleans up the data system.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt>el_data* dp</dt>
+<dd>
+A pointer to a valid el_data structure.
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<ul>
+<li>On success: 1.</li>
+<li>On error: 0.</li>
+</ul>
+<h2 id="remarks">Remarks</h2>
+<p>It is your responsibility to ensure that any heap memory that may be
+supporting the el_data structure is safely freed.</p>
+</body>
+</html>

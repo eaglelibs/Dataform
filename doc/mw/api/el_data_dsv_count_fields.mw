@@ -1,0 +1,18 @@
+=el_data_dsv_count_fields=
+<syntaxhighlight lang="c">
+int el_data_dsv_count_fields(el_data* dp);
+</syntaxhighlight>
+
+==Description==
+Retrieves the number of fields parsed.
+
+==Parameters==
+;el_data* dp
+:A pointer to a valid el_data structure.
+
+==Returns==
+*On success: The number of available fields.
+*On error: 0.
+
+==Remarks==
+Data must first be parsed using el_data_dsv_parse_line before this function can be used.

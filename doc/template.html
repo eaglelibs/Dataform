@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="$lang$">
+<head>
+<meta charset="utf-8" />
+<title>$if(title-prefix)$$title-prefix$ - $endif$$pagetitle$</title>
+$for(header-includes)$
+$header-includes$
+$endfor$
+</head>
+<body>
+$for(include-before)$
+$include-before$
+$endfor$
+$if(title)$
+<h1>$title$</h1>
+$if(subtitle)$
+<p>$subtitle$</p>
+$endif$
+$for(author)$
+<p>$author$</p>
+$endfor$
+$if(date)$
+<p>$date$</p>
+$endif$
+$endif$
+$if(toc)$
+$if(toc-title)$
+<h2 id="$idprefix$toc-title">$toc-title$</h2>
+$endif$
+$table-of-contents$
+$endif$
+$body$
+$for(include-after)$
+$include-after$
+$endfor$
+</body>
+</html>

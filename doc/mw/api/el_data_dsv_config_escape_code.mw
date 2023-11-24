@@ -1,0 +1,42 @@
+=el_data_dsv_config_escape_code=
+<syntaxhighlight lang="c">
+int el_data_dsv_config_escape_code(el_data* dp, char escape, char real);
+</syntaxhighlight>
+
+==Description==
+Adds an escape code to the Delimiter-Separated Values (DSV) parser.
+
+Note that in the escape sequence "\n", n is considered the escape code.
+
+Common characters you may wish to escape are:
+*New line characters (\r\n)
+*Delimiter character
+*Escape character
+*Quotation marks
+
+==Parameters==
+;el_data* dp
+:A pointer to a valid el_data structure.
+;char escape
+:The character to use as an escape code.
+;char real
+:The character you are escaping.
+
+==Returns==
+*On success: 1.
+*On error: 0.
+
+==Remarks==
+You can call this function multiple times to set as many escape codes as you like.
+
+Each escape code must be unique. Calling this function with an escape code that already exists will overwrite the value of the true character it is meant to escape. On the other hand, a true character may have more than one escape code. See example below to see how this works.
+
+==Example==
+<syntaxhighlight lang="c">
+/* Assuming the following initialised parser, declared as follows: el_data dp; */
+
+el_data_dsv_config_escape_code(&dp, 'r', '\r'); /* \r is now escaped in the parser */
+el_data_dsv_config_escape_code(&dp, 'n', '\n'); /* \n is now escaped in the parser */
+el_data_dsv_config_escape_code(&dp, 'r', '\n'); /* Oops. \r has now been overwritten and mapped to \n. Writing \r\n in our data will now parse that as \n\n. */
+
+</syntaxhighlight>
