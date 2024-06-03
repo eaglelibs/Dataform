@@ -1,5 +1,4 @@
 #include "data.h"
-
 int el_data_initialise(el_data* dp)
 {
 if(!dp) return 0;
@@ -84,11 +83,9 @@ if(!dp) return 0;
 if(!elz_dsv_cleanup(dp)) return 0;
 return elz_reset(dp);
 }
-
 int elz_dsv_parser_process_char(el_data* dp, char c)
 {
 if(!dp) return 0;
-if(!elz_hlp_is_valid_char(c)) return 0;
 if(elz_dsv_parser_is_delimiter(dp, c)) return elz_dsv_parser_process_delimiter(dp);
 if(dp->dsv.parser.escaped) return elz_dsv_parser_process_escaped_char(dp, c);
 return elz_dsv_parser_process_nonescaped_char(dp, c);
@@ -96,6 +93,7 @@ return elz_dsv_parser_process_nonescaped_char(dp, c);
 int elz_dsv_parser_process_nonescaped_char(el_data* dp, char c)
 {
 if(!dp) return 0;
+if(!elz_hlp_is_valid_char(c)) return 0;
 if(elz_dsv_parser_is_escape_char(dp, c))
 {
 dp->dsv.parser.escaped=1;
@@ -187,7 +185,6 @@ dp->dsv.data.field=newdata;
 dp->dsv.data.field_count=newdatasize;
 return 1;
 }
-
 int elz_dsv_is_valid_delimiter(char d)
 {
 if(d==9) return 1;
@@ -208,7 +205,6 @@ if(config->escape_code[x].escape==c) return x;
 }
 return -1;
 }
-
 int elz_reset(el_data* dp)
 {
 if(!dp) return 1;

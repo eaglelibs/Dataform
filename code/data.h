@@ -1,6 +1,7 @@
 #ifndef el_data_h
 #define el_data_h
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
