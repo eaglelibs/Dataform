@@ -43,11 +43,17 @@ int field_count;
 }
 elz_dsv_data;
 
-struct el_data
+typedef struct
 {
 elz_dsv_config config;
 elz_dsv_parser parser;
 elz_dsv_data data;
+}
+elz_dsv;
+
+struct el_data
+{
+elz_dsv dsv;
 };
 
 /* Public functions */
@@ -81,6 +87,7 @@ int elz_dsv_data_cleanup(elz_dsv_data* data);
 int elz_dsv_parser_reset(elz_dsv_parser* parser);
 int elz_dsv_config_reset(elz_dsv_config* config);
 int elz_dsv_data_reset(elz_dsv_data* data);
+int elz_dsv_cleanup(el_data* dp);
 int elz_hlp_is_valid_char(char c);
 
 #endif

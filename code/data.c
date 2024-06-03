@@ -9,7 +9,7 @@ int el_data_dsv_config_set_delimiter(el_data* dp, char delimiter)
 {
 if(!dp) return 0;
 if(!elz_dsv_is_valid_delimiter(delimiter)) return 0;
-dp->config.delimiter=delimiter;
+dp->dsv.config.delimiter=delimiter;
 return 1;
 }
 int el_data_dsv_config_set_escape_character(el_data* dp, char escape)
@@ -17,74 +17,71 @@ int el_data_dsv_config_set_escape_character(el_data* dp, char escape)
 if(!dp) return 0;
 if(escape<33) return 0;
 if(!elz_dsv_is_valid_delimiter(escape)) return 0;
-if(dp->config.delimiter==escape) return 0;
-dp->config.escape_character=escape;
+if(dp->dsv.config.delimiter==escape) return 0;
+dp->dsv.config.escape_character=escape;
 return 1;
 }
 int el_data_dsv_config_escape_code(el_data* dp, char escape, char real)
 {
 if(!dp) return 0;
-int id=elz_dsv_config_escape_code_find(&dp->config, escape);
+int id=elz_dsv_config_escape_code_find(&dp->dsv.config, escape);
 if(id>-1)
 {
-dp->config.escape_code[id].real=real;
+dp->dsv.config.escape_code[id].real=real;
 return 1;
 }
-int ecc=dp->config.escape_code_count+1;
-elz_dsv_escape_code* ec=realloc(dp->config.escape_code, sizeof(elz_dsv_escape_code)*ecc);
+int ecc=dp->dsv.config.escape_code_count+1;
+elz_dsv_escape_code* ec=realloc(dp->dsv.config.escape_code, sizeof(elz_dsv_escape_code)*ecc);
 if(!ec) return 0;
 elz_dsv_escape_code new;
 new.escape=escape;
 new.real=real;
-dp->config.escape_code=ec;
-dp->config.escape_code[dp->config.escape_code_count]=new;
-dp->config.escape_code_count=ecc;
+dp->dsv.config.escape_code=ec;
+dp->dsv.config.escape_code[dp->dsv.config.escape_code_count]=new;
+dp->dsv.config.escape_code_count=ecc;
 return 1;
 }
 int el_data_dsv_config_include_invalid_escape_sequence(el_data* dp)
 {
 if(!dp) return 0;
-dp->config.include_invalid_escape=1;
+dp->dsv.config.include_invalid_escape=1;
 return 1;
 }
 int el_data_dsv_config_exclude_invalid_escape_sequence(el_data* dp)
 {
 if(!dp) return 0;
-dp->config.include_invalid_escape=0;
+dp->dsv.config.include_invalid_escape=0;
 return 1;
 }
 int el_data_dsv_parse_line(el_data* dp, char* line)
 {
 if(!dp) return 0;
 if((!line)||(!*line)) return 0;
-if(dp->config.delimiter==0) return 0;
+if(dp->dsv.config.delimiter==0) return 0;
 if(!elz_dsv_parser_create_new_field(dp)) return 0;
 for(int x=0; x<=strlen(line); x++)
 {
 elz_dsv_parser_process_char(dp, line[x]);
 }
-elz_dsv_parser_cleanup(&dp->parser);
+elz_dsv_parser_cleanup(&dp->dsv.parser);
 return 1;
 }
 char* el_data_dsv_get_field(el_data* dp, int field)
 {
 if(!dp) return NULL;
 if(field<0) return NULL;
-if(field>=dp->data.field_count) return NULL;
-return dp->data.field[field];
+if(field>=dp->dsv.data.field_count) return NULL;
+return dp->dsv.data.field[field];
 }
 int el_data_dsv_count_fields(el_data* dp)
 {
 if(!dp) return 0;
-return dp->data.field_count;
+return dp->dsv.data.field_count;
 }
-
 int el_data_cleanup(el_data* dp)
 {
 if(!dp) return 0;
-if(!elz_dsv_config_cleanup(&dp->config)) return 0;
-if(!elz_dsv_parser_cleanup(&dp->parser)) return 0;
-if(!elz_dsv_data_cleanup(&dp->data)) return 0;
+if(!elz_dsv_cleanup(dp)) return 0;
 return elz_reset(dp);
 }
 
@@ -93,7 +90,7 @@ int elz_dsv_parser_process_char(el_data* dp, char c)
 if(!dp) return 0;
 if(!elz_hlp_is_valid_char(c)) return 0;
 if(elz_dsv_parser_is_delimiter(dp, c)) return elz_dsv_parser_process_delimiter(dp);
-if(dp->parser.escaped) return elz_dsv_parser_process_escaped_char(dp, c);
+if(dp->dsv.parser.escaped) return elz_dsv_parser_process_escaped_char(dp, c);
 return elz_dsv_parser_process_nonescaped_char(dp, c);
 }
 int elz_dsv_parser_process_nonescaped_char(el_data* dp, char c)
@@ -101,50 +98,50 @@ int elz_dsv_parser_process_nonescaped_char(el_data* dp, char c)
 if(!dp) return 0;
 if(elz_dsv_parser_is_escape_char(dp, c))
 {
-dp->parser.escaped=1;
+dp->dsv.parser.escaped=1;
 return 1;
 }
 if(c==34)
 {
-dp->parser.quoted=!dp->parser.quoted;
+dp->dsv.parser.quoted=!dp->dsv.parser.quoted;
 return 1;
 }
-return elz_dsv_parser_add_field_char(&dp->parser, c);
+return elz_dsv_parser_add_field_char(&dp->dsv.parser, c);
 }
 int elz_dsv_parser_process_escaped_char(el_data* dp, char c)
 {
 if(!dp) return 0;
-dp->parser.escaped=0;
-int id=elz_dsv_config_escape_code_find(&dp->config, c);
-if(id>-1) return elz_dsv_parser_add_field_char(&dp->parser, dp->config.escape_code[id].real);
-if(!dp->config.include_invalid_escape) return 1;
-elz_dsv_parser_add_field_char(&dp->parser, dp->config.escape_character);
-elz_dsv_parser_add_field_char(&dp->parser, c);
+dp->dsv.parser.escaped=0;
+int id=elz_dsv_config_escape_code_find(&dp->dsv.config, c);
+if(id>-1) return elz_dsv_parser_add_field_char(&dp->dsv.parser, dp->dsv.config.escape_code[id].real);
+if(!dp->dsv.config.include_invalid_escape) return 1;
+elz_dsv_parser_add_field_char(&dp->dsv.parser, dp->dsv.config.escape_character);
+elz_dsv_parser_add_field_char(&dp->dsv.parser, c);
 return 1;
 }
 int elz_dsv_parser_is_escape_char(el_data* dp, char c)
 {
 if(!dp) return 0;
-if(dp->config.escape_code_count<=0) return 0;
-if(dp->config.escape_character==c) return 1;
+if(dp->dsv.config.escape_code_count<=0) return 0;
+if(dp->dsv.config.escape_character==c) return 1;
 return 0;
 }
 int elz_dsv_parser_is_delimiter(el_data* dp, char c)
 {
 if(!dp) return 0;
 if(c==0) return 1;
-if(dp->parser.quoted) return 0;
-if(c==dp->config.delimiter) return 1;
+if(dp->dsv.parser.quoted) return 0;
+if(c==dp->dsv.config.delimiter) return 1;
 return 0;
 }
 int elz_dsv_parser_process_delimiter(el_data* dp)
 {
 if(!dp) return 0;
-if(!dp->parser.current_field) return 0;
-if((dp->parser.escaped)&&(dp->config.include_invalid_escape))
+if(!dp->dsv.parser.current_field) return 0;
+if((dp->dsv.parser.escaped)&&(dp->dsv.config.include_invalid_escape))
 {
-dp->parser.escaped=0;
-elz_dsv_parser_add_field_char(&dp->parser, dp->config.escape_character);
+dp->dsv.parser.escaped=0;
+elz_dsv_parser_add_field_char(&dp->dsv.parser, dp->dsv.config.escape_character);
 }
 if(!elz_dsv_data_add_field(dp)) return 0;
 if(!elz_dsv_parser_create_new_field(dp)) return 0;
@@ -153,10 +150,10 @@ return 1;
 int elz_dsv_parser_create_new_field(el_data* dp)
 {
 if(!dp) return 0;
-if(!dp->parser.current_field) dp->parser.current_field=malloc(1024);
-if(!dp->parser.current_field) return 0;
-strcpy(dp->parser.current_field, "");
-dp->parser.field_offset=0;
+if(!dp->dsv.parser.current_field) dp->dsv.parser.current_field=malloc(1024);
+if(!dp->dsv.parser.current_field) return 0;
+strcpy(dp->dsv.parser.current_field, "");
+dp->dsv.parser.field_offset=0;
 return 1;
 }
 int elz_dsv_parser_add_field_char(elz_dsv_parser* parser, char c)
@@ -170,24 +167,24 @@ return 1;
 int elz_dsv_data_add_field(el_data* dp)
 {
 if(!dp) return 0;
-if(!*dp->parser.current_field) return 0;
+if(!*dp->dsv.parser.current_field) return 0;
 char* newfield=NULL;
-if(dp->parser.current_field[0]!=0)
+if(dp->dsv.parser.current_field[0]!=0)
 {
-newfield=malloc(strlen(dp->parser.current_field)+1);
+newfield=malloc(strlen(dp->dsv.parser.current_field)+1);
 if(!newfield) return 0;
-strcpy(newfield, dp->parser.current_field);
+strcpy(newfield, dp->dsv.parser.current_field);
 }
-int newdatasize=dp->data.field_count+1;
-char** newdata=realloc(dp->data.field, sizeof(char*)*newdatasize);
+int newdatasize=dp->dsv.data.field_count+1;
+char** newdata=realloc(dp->dsv.data.field, sizeof(char*)*newdatasize);
 if(!newdata)
 {
 if(newfield) free(newfield);
 return 0;
 }
-newdata[dp->data.field_count]=newfield;
-dp->data.field=newdata;
-dp->data.field_count=newdatasize;
+newdata[dp->dsv.data.field_count]=newfield;
+dp->dsv.data.field=newdata;
+dp->dsv.data.field_count=newdatasize;
 return 1;
 }
 
@@ -215,9 +212,9 @@ return -1;
 int elz_reset(el_data* dp)
 {
 if(!dp) return 1;
-elz_dsv_parser_reset(&dp->parser);
-elz_dsv_config_reset(&dp->config);
-elz_dsv_data_reset(&dp->data);
+elz_dsv_parser_reset(&dp->dsv.parser);
+elz_dsv_config_reset(&dp->dsv.config);
+elz_dsv_data_reset(&dp->dsv.data);
 return 1;
 }
 int elz_dsv_config_cleanup(elz_dsv_config* config)
@@ -266,6 +263,14 @@ int elz_dsv_data_reset(elz_dsv_data* data)
 if(!data) return 1;
 data->field=NULL;
 data->field_count=0;
+return 1;
+}
+int elz_dsv_cleanup(el_data* dp)
+{
+if(!dp) return 0;
+if(!elz_dsv_config_cleanup(&dp->dsv.config)) return 0;
+if(!elz_dsv_parser_cleanup(&dp->dsv.parser)) return 0;
+if(!elz_dsv_data_cleanup(&dp->dsv.data)) return 0;
 return 1;
 }
 int elz_hlp_is_valid_char(char c)
